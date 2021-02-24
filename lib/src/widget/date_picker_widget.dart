@@ -19,7 +19,6 @@ const List<int> _solarMonthsOf31Days = const <int>[1, 3, 5, 7, 8, 10, 12];
 class DatePickerWidget extends StatefulWidget {
   DatePickerWidget({
     Key key,
-    this.onMonthChangeStartWithFirstDate,
     this.minDateTime,
     this.maxDateTime,
     this.initialDateTime,
@@ -42,7 +41,6 @@ class DatePickerWidget extends StatefulWidget {
 
   final DateVoidCallback onCancel;
   final DateValueCallback onChange, onConfirm;
-  final onMonthChangeStartWithFirstDate;
 
   @override
   State<StatefulWidget> createState() => _DatePickerWidgetState(
@@ -286,11 +284,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         _dayRange.first != dayRange.first || _dayRange.last != dayRange.last;
     if (dayRangeChanged) {
       // day range changed, need limit the value of selected day
-      if (!widget.onMonthChangeStartWithFirstDate) {
-        max(min(_currDay, dayRange.last), dayRange.first);
-      } else {
-        _currDay = dayRange.first;
-      }
+      _currDay = max(min(_currDay, dayRange.last), dayRange.first);
     }
 
     setState(() {
@@ -347,7 +341,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   /// calculate the range of year
   List<int> _calcYearRange() {
-    print(_minDateTime.year.toString() + ", " + _maxDateTime.year.toString());
     return [_minDateTime.year, _maxDateTime.year];
   }
 

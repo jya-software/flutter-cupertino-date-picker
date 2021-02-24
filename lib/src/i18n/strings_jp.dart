@@ -57,10 +57,4 @@ class _StringsJp extends _StringsI18n {
       "日",
     ];
   }
-
-  @override
-  List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
-  }
 }

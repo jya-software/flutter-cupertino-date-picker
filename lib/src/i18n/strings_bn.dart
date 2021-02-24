@@ -57,10 +57,4 @@ class _StringsBn extends _StringsI18n {
       "শনি",
     ];
   }
-
-  @override
-  List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
-  }
 }

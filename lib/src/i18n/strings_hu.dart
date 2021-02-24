@@ -57,10 +57,4 @@ class _StringsHu extends _StringsI18n {
       "V",
     ];
   }
-
-  @override
-  List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
-  }
 }

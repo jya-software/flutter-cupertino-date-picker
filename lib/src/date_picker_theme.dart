@@ -20,7 +20,10 @@ const double DATETIME_PICKER_ITEM_HEIGHT = 36.0;
 const TextStyle DATETIME_PICKER_ITEM_TEXT_STYLE =
     const TextStyle(color: Color(0xFF000046), fontSize: 16.0);
 
-class DateTimePickerTheme with DiagnosticableMixin {
+const TextStyle DATETIME_PICKER_ITEM_SUP_TEXT_STYLE =
+    const TextStyle(color: Color(0xFF000046), fontSize: 8.0);
+
+class DateTimePickerTheme with Diagnosticable {
   final cancelDefault = const Text('OK');
 
   /// DateTimePicker theme.
@@ -48,6 +51,8 @@ class DateTimePickerTheme with DiagnosticableMixin {
     this.titleHeight: DATETIME_PICKER_TITLE_HEIGHT,
     this.itemHeight: DATETIME_PICKER_ITEM_HEIGHT,
     this.itemTextStyle: DATETIME_PICKER_ITEM_TEXT_STYLE,
+    this.enableSup: false,
+    this.itemSupTextStyle: DATETIME_PICKER_ITEM_SUP_TEXT_STYLE,
   });
 
   static const DateTimePickerTheme Default = const DateTimePickerTheme();
@@ -84,4 +89,8 @@ class DateTimePickerTheme with DiagnosticableMixin {
 
   /// The value of DatePicker's column [TextStyle].
   final TextStyle itemTextStyle;
+
+  final enableSup;
+
+  final TextStyle itemSupTextStyle;
 }

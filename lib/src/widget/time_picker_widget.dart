@@ -235,6 +235,8 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
           scrollController: scrollCtrl,
           itemExtent: widget.pickerTheme.itemHeight,
           onSelectedItemChanged: valueChanged,
+          useMagnifier: true,
+          magnification: 1.1,
           childCount: format.contains('m')
               ? _calculateMinuteChildCount(valueRange, minuteDivider)
               : valueRange.last - valueRange.first + 1,
@@ -242,9 +244,12 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
             int value = valueRange.first + index;
 
             if (format.contains('m')) {
-              value = minuteDivider * index + valueRange.first;
+              value = minuteDivider * index;
             }
 
+            if (widget.pickerTheme.enableSup) {
+              return _renderCustomDatePickerItemComponent(value, format);
+            }
             return _renderDatePickerItemComponent(value, format);
           },
         ),
@@ -273,6 +278,37 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
     );
   }
 
+  Widget _renderCustomDatePickerItemComponent(int value, String format) {
+    if (format.contains("m") && _currMinute == value ||
+        format.contains("H") && value == _currHour) {
+      return Container(
+        height: widget.pickerTheme.itemHeight * 1.5,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Text(
+              "$value".padLeft(2, "0"),
+              style: widget.pickerTheme.itemTextStyle ??
+                  DATETIME_PICKER_ITEM_TEXT_STYLE,
+            ),
+            Align(
+              alignment: Alignment.topRight,
+            ),
+          ],
+        ),
+      );
+    }
+    return Container(
+      height: widget.pickerTheme.itemHeight,
+      alignment: Alignment.center,
+      child: Text(
+        DateTimeFormatter.formatDateTime(value, format, widget.locale),
+        style:
+            widget.pickerTheme.itemTextStyle ?? DATETIME_PICKER_ITEM_TEXT_STYLE,
+      ),
+    );
+  }
+
   /// change the selection of hour picker
   void _changeHourSelection(int index) {
     int value = _hourRange.first + index;
@@ -285,7 +321,8 @@ class _TimePickerWidgetState extends State<TimePickerWidget> {
 
   /// change the selection of minute picker
   void _changeMinuteSelection(int index) {
-    int value = index * _minuteDivider + _minuteRange.first;
+    // TODO: this looks like it would break date ranges but not taking into account _minuteRange.first
+    int value = index * _minuteDivider;
     if (_currMinute != value) {
       _currMinute = value;
       _changeTimeRange();

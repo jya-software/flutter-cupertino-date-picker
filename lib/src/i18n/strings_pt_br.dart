@@ -49,10 +49,4 @@ class _StringsPtBr extends _StringsI18n {
   List<String> getWeeksShort() {
     return null;
   }
-
-  @override
-  List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
-  }
 }

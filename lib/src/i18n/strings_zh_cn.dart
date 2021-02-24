@@ -57,10 +57,4 @@ class _StringsZhCn extends _StringsI18n {
       "周日",
     ];
   }
-
-  @override
-  List<String> getMonthsShort() {
-    // TODO: implement getMonthsShort
-    return null;
-  }
 }
